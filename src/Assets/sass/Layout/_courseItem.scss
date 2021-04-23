@@ -1,0 +1,10 @@
+.course__item {
+  .subcribe_button {
+    padding: 5px 15px;
+    margin-right: 20px;
+    border-radius: 3px;
+    background: linear-gradient(to right, $color-1, $color-2);
+    color: white;
+    font-weight: bold;
+  }
+}

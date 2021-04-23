@@ -1,0 +1,16 @@
+.course_list_wrapper {
+  .course_list_title {
+    height: 150px;
+    // background: linear-gradient(to right, $color-1, $color-2);
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    p {
+      color: white;
+      text-transform: uppercase;
+      font-size: 40px;
+      font-weight: bold;
+    }
+  }
+}
