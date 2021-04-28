@@ -21,7 +21,7 @@ export default function Login(props) {
       taiKhoan: Yup.string().required("Tài khoản không được bỏ trống"),
       matKhau: Yup.string()
         .required("Mật khẩu không được bỏ trống")
-        .min(6, "Mật khẩu tối thiểu 6 ký tự")
+        .min(5, "Mật khẩu tối thiểu 5 ký tự")
         .max(24, "Mật khẩu tối đa 24 ký tự"), //.test(/cybersof/,'Mật khẩu không đúng định dạng')
       email: Yup.string()
         .required("Email không được bỏ trống!")
@@ -43,11 +43,10 @@ export default function Login(props) {
       taiKhoan: Yup.string().required("Tài khoản không được bỏ trống"),
       matKhau: Yup.string()
         .required("Mật khẩu không được bỏ trống")
-        .min(6, "Mật khẩu tối thiểu 6 ký tự")
+        .min(5, "Mật khẩu tối thiểu 5 ký tự")
         .max(24, "Mật khẩu tối đa 24 ký tự"), //.test(/cybersof/,'Mật khẩu không đúng định dạng')
     }),
     onSubmit: (values) => {
-      console.log("values", values);
       dispatch(loginApi(values));
     },
   });

@@ -5,7 +5,18 @@ import {
   LAY_KHOA_HOC_THEO_DANH_MUC,
   LAY_KHOA_HOC_THEO_TIM_KIEM,
   LAY_CHI_TIET_KHOA_HOC,
+  DANG_KY_KHOA_HOC,
 } from "../Constants/eLearningConst";
+import { ACCESS_TOKEN, USER_LOGIN } from "./../../util/setting";
+import { getUserInfoApi } from "./../../Redux/Actions/UserAction";
+
+let taiKhoan = "";
+let token = "";
+if (localStorage.getItem(USER_LOGIN)) {
+  let userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
+  taiKhoan = userLogin.taiKhoan;
+  token = userLogin.accessToken;
+}
 
 export const getCourseListApi = (MaNhom) => {
   return async (dispatch) => {
@@ -86,6 +97,50 @@ export const layChiTietKhoaHocApi = (maKhoaHoc) => {
         type: LAY_CHI_TIET_KHOA_HOC,
         chiTietKhoaHoc: result.data,
       });
+    } catch (err) {
+      alert(err);
+    }
+  };
+};
+
+export const dangKyKhoaHocApi = (maKhoaHoc, taiKhoan) => {
+  return async (dispatch) => {
+    try {
+      let result = await axios({
+        url: `https://elearning0706.cybersoft.edu.vn/api/QuanLyKhoaHoc/DangKyKhoaHoc`,
+        method: "POST",
+        data: {
+          taiKhoan: taiKhoan,
+          maKhoaHoc: maKhoaHoc,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      alert(result.data);
+      dispatch(getUserInfoApi(taiKhoan));
+    } catch (err) {
+      alert(err);
+    }
+  };
+};
+
+export const huyDangKyKhoaHocApi = (maKhoaHoc, taiKhoan) => {
+  return async (dispatch) => {
+    try {
+      let result = await axios({
+        url: `https://elearning0706.cybersoft.edu.vn/api/QuanLyKhoaHoc/HuyGhiDanh`,
+        method: "POST",
+        data: {
+          taiKhoan: taiKhoan,
+          maKhoaHoc: maKhoaHoc,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      alert(result.data);
+      dispatch(getUserInfoApi(taiKhoan));
     } catch (err) {
       alert(err);
     }

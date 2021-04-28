@@ -7,9 +7,11 @@ import { getCourseListApi } from "./../../Redux/Actions/eLearningAction";
 import Footer from "../../Components/Footer/Footer";
 import { NavLink } from "react-router-dom";
 import CourseItem from "../../Components/CourseItem.js/CourseItem";
+import { getUserInfoApi } from "../../Redux/Actions/UserAction";
 
 export default function Home() {
   const { danhSachKhoaHoc } = useSelector((state) => state.CourseReducer);
+  const { taiKhoan } = useSelector((state) => state.UserReducer);
   const dispatch = useDispatch();
 
   const renderCourseList = () => {
@@ -22,6 +24,9 @@ export default function Home() {
   };
   useEffect(() => {
     getCourseList();
+    if (taiKhoan !== "") {
+      dispatch(getUserInfoApi(taiKhoan));
+    }
   }, []);
   return (
     <div>

@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import CourseItem from "../../Components/CourseItem.js/CourseItem";
-import Footer from "../../Components/Footer/Footer";
-import Header from "../../Components/Header/Header";
 import { layKhoaHocTheoDanhMucApi } from "./../../Redux/Actions/eLearningAction";
 
 export default function CourseList(props) {

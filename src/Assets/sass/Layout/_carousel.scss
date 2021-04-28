@@ -3,15 +3,22 @@
     width: 100%;
     height: 670px;
     background-color: black;
-    .carousel__content {
+    .carousel_content_wrapper {
       position: absolute;
-      display: block;
-      visibility: visible;
-      left: 1093px;
-      top: 107px;
+      height: 670px;
+      align-items: center;
+      left: 0;
+      top: 0;
       z-index: 7;
+      .carousel_content {
+        max-width: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
       h1 {
         font-size: 70px;
+        text-align: center;
       }
       .carousel_content_header_1 {
         color: $color-1;
@@ -24,7 +31,7 @@
       }
       .carousel_content_text {
         color: ivory;
-        max-width: 500px;
+        text-align: center;
       }
       .carousel_content_button_1 {
         background-image: linear-gradient(to right, $color-1, $color-3);
@@ -149,6 +156,61 @@
     .radial#link_parent a {
       height: 235px;
       width: 235px;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .carousel {
+    .carousel__wrapper {
+      height: 470px;
+      .carousel_content_wrapper {
+        height: 470px;
+        display: flex;
+        justify-content: center;
+        .carousel_content {
+          max-width: 400px;
+          justify-items: center;
+        }
+        h1 {
+          font-size: 50px;
+          text-align: center;
+        }
+        .carousel_content_text {
+          color: ivory;
+          font-size: 30px;
+          text-align: center;
+        }
+      }
+    }
+  }
+  #future_links {
+    display: none;
+  }
+}
+
+@media (max-width: 992px) {
+  .carousel {
+    .carousel__wrapper {
+      height: 470px;
+      .carousel_content_wrapper {
+        height: 470px;
+        display: flex;
+        justify-content: center;
+        .carousel_content {
+          max-width: 400px;
+          justify-items: center;
+        }
+        h1 {
+          font-size: 50px;
+          text-align: center;
+        }
+        .carousel_content_text {
+          color: ivory;
+          font-size: 30px;
+          text-align: center;
+        }
+      }
     }
   }
 }

@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import Footer from "../../Components/Footer/Footer";
-import Header from "../../Components/Header/Header";
 import { layKhoaHocTheoTimKiemApi } from "./../../Redux/Actions/eLearningAction";
 
 export default function CourseSearch(props) {
@@ -16,8 +14,8 @@ export default function CourseSearch(props) {
   const renderCourseSearchPage = () => {
     return khoaHocTheoTimKiem.map((item, index) => {
       return (
-        <NavLink to={`/chitiet/${item.maKhoaHoc}`}>
-          <div className="card flex-row flex-wrap" key={index}>
+        <NavLink to={`/chitiet/${item.maKhoaHoc}`} key={index}>
+          <div className="card flex-row flex-wrap">
             <div className="card-header">
               <img src={item.hinhAnh} alt={item.tenKhoaHoc} />
             </div>

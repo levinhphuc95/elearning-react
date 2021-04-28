@@ -1,13 +1,17 @@
 import React, { useEffect } from "react";
-import { Link, NavLink, useHistory } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { layDanhMucKhoaHocApi } from "./../../Redux/Actions/eLearningAction";
 import { useFormik } from "formik";
 import { history } from "./../../App";
+import UserLoginButtons from "../UserLogin/UserLoginButtons";
+import UserInfo from "../UserLogin/UserInfo";
 
 export default function Header(props) {
   const { danhMucKhoaHoc } = useSelector((state) => state.CourseReducer);
-  const { tenDangNhap } = useSelector((state) => state.UserReducer);
+  const { thongTinTaiKhoan, taiKhoan } = useSelector(
+    (state) => state.UserReducer
+  );
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -59,19 +63,19 @@ export default function Header(props) {
           </button>
           <div className="collapse navbar-collapse" id="navcol-1">
             <ul className="nav navbar-nav">
-              <li className="nav-item dropdown">
+              <li className="nav-item dropdown navbar__item">
                 <a
                   className="nav-link dropdown-toggle"
                   href="#"
-                  id="dropdownId"
+                  id="dropdownBrowse"
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  <i className="fa fa-bars"></i>
-                  <span>Danh mục khóa học</span>
+                  <i className="fa fa-bars navbar_item_icon"></i>
+                  <span className="navbar_item_text">Danh mục</span>
                 </a>
-                <div className="dropdown-menu" aria-labelledby="dropdownId">
+                <div className="dropdown-menu" aria-labelledby="dropdownBrowse">
                   {renderDanhMucKhoaHoc()}
                 </div>
               </li>
@@ -96,27 +100,15 @@ export default function Header(props) {
               </div>
             </form>
             <div>
-              {tenDangNhap.trim() !== "" ? (
-                <NavLink to="/">
-                  <i className="fas fa-user-circle"></i>
-                  {tenDangNhap}
-                </NavLink>
+              {taiKhoan.trim() !== "" ? (
+                <UserInfo
+                  // userName={tenDangNhap}
+                  maLoaiND={thongTinTaiKhoan.maLoaiNguoiDung}
+                  taiKhoan={taiKhoan}
+                />
               ) : (
                 <div>
-                  <NavLink
-                    className="nav_button_1"
-                    role="button"
-                    to="/login/sign-in"
-                  >
-                    Đăng nhập
-                  </NavLink>
-                  <NavLink
-                    className="nav_button_2"
-                    role="button"
-                    to="/login/sign-up"
-                  >
-                    Đăng kí
-                  </NavLink>
+                  <UserLoginButtons />
                 </div>
               )}
             </div>
