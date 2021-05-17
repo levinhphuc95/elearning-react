@@ -16,11 +16,11 @@ export default function CourseList(props) {
   };
 
   const renderCourseListPageTitle = () => {
-    let index = danhMucKhoaHoc.findIndex(
-      (KH) => KH.maDanhMuc == props.match.params.maDanhMucKhoaHoc
+    let index = danhMucKhoaHoc?.findIndex(
+      (KH) => KH.maDanhMuc === props.match.params.maDanhMucKhoaHoc
     );
     return khoaHocTheoDanhMuc !== [] ? (
-      <p>{danhMucKhoaHoc[index].tenDanhMuc}</p>
+      <p>{danhMucKhoaHoc[index]?.tenDanhMuc}</p>
     ) : (
       <p>Chưa có khóa học trong danh mục này</p>
     );
@@ -29,6 +29,7 @@ export default function CourseList(props) {
   useEffect(() => {
     dispatch(layKhoaHocTheoDanhMucApi(props.match.params.maDanhMucKhoaHoc));
   }, [props.match.params.maDanhMucKhoaHoc]);
+
   return (
     <div>
       <div className="course_list_wrapper">

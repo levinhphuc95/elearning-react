@@ -1,9 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 export default function CourseItem(props) {
-  const { thongTinNguoiDung } = useSelector((state) => state.UserReducer);
   return (
     <div className="col-xl-3 col-md-4 course__item" key={props.index}>
       <div className="card text-left mt-3">

@@ -22,7 +22,6 @@ const initialState = {
   taiKhoan: tk,
   thongTinTaiKhoan: {},
 };
-console.log(initialState);
 
 export default (state = initialState, action) => {
   switch (action.type) {

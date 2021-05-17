@@ -108,6 +108,7 @@ export default function Footer() {
         </div>
         <div className="col-lg-4 my-3 px-5">
           <iframe
+          title="Facebook Cybersoft"
             src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Flophocviet&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
             style={{ border: "none", overflow: "hidden" }}
             scrolling="no"

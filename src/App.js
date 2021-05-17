@@ -8,9 +8,12 @@ import "./Assets/sass/style.scss";
 import Login from "./Pages/Login/Login";
 import HomeTemplate from "./Templates/HomeTemplate/HomeTemplate";
 import UserTemplate from "./Templates/UserTemplate/UserTemplate";
+import AdminTemplate from "./Templates/AdminTemplate/AdminTemplate";
 //Cấu hình chuyển hướng trên Route
 import { createBrowserHistory } from "history";
 import UpdateProfile from "./Pages/UpdateProfile/UpdateProfile";
+import AdminUser from "./Pages/Admin/AdminUser";
+import AdminCourse from "./Pages/Admin/AdminCourse";
 export const history = createBrowserHistory();
 
 function App() {
@@ -44,6 +47,16 @@ function App() {
             path="/khoahoccuatoi"
             component={UserCourse}
           ></UserTemplate>
+          <AdminTemplate
+            exact
+            path="/admin"
+            component={AdminUser}
+          ></AdminTemplate>
+          <AdminTemplate
+            exact
+            path="/admin/courses"
+            component={AdminCourse}
+          ></AdminTemplate>
           <Route exact path="/login/:signUpMode" component={Login}></Route>
           <HomeTemplate exact path="/" component={Home}></HomeTemplate>
         </Switch>

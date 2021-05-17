@@ -22,12 +22,8 @@ export default function Header(props) {
     },
   });
 
-  const layDanhMucKhoaHoc = () => {
-    dispatch(layDanhMucKhoaHocApi());
-  };
-
   useEffect(() => {
-    layDanhMucKhoaHoc();
+    dispatch(layDanhMucKhoaHocApi());
   }, []);
 
   const renderDanhMucKhoaHoc = () => {
@@ -69,7 +65,6 @@ export default function Header(props) {
                   href="#"
                   id="dropdownBrowse"
                   data-toggle="dropdown"
-                  aria-haspopup="true"
                   aria-expanded="false"
                 >
                   <i className="fa fa-bars navbar_item_icon"></i>

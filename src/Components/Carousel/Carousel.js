@@ -11,7 +11,7 @@ export default function Carousel() {
           <div className="radial" id="radial_ring_2"></div>
           <div className="radial" id="radial_ring_3"></div>
           <div className="radial" id="link_parent">
-            <a href="#"></a>
+            <a href="/"></a>
           </div>
         </div>
         <div className="row w-100 carousel_content_wrapper">

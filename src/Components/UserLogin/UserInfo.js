@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { DANG_XUAT_TAI_KHOAN } from "./../../Redux/Constants/eLearningConst";
 
 export default function UserInfo(props) {
@@ -17,10 +17,14 @@ export default function UserInfo(props) {
         </Link>
       </li>
       <li className="nav-item dropdown navbar__item">
-        <Link className="nav-link dropdown-toggle" to="/khoahoccuatoi">
-          <i className="fa fa-book-open navbar_item_icon"></i>
-          <span className="navbar_item_text">Khóa học của tôi</span>
-        </Link>
+        {!props.admin ? (
+          <Link className="nav-link dropdown-toggle" to="/khoahoccuatoi">
+            <i className="fa fa-book-open navbar_item_icon"></i>
+            <span className="navbar_item_text">Khóa học của tôi</span>
+          </Link>
+        ) : (
+          ""
+        )}
       </li>
       <li className="nav-item dropdown navbar__item">
         <a
@@ -42,8 +46,8 @@ export default function UserInfo(props) {
             Thông tin tài khoản
           </Link>
           <div>
-            {props.maLoaiND == "GV" ? (
-              <Link className="dropdown-item bg-light text-dark" to={`/`}>
+            {props.maLoaiND === "GV" ? (
+              <Link className="dropdown-item bg-light text-dark" to={`/admin`}>
                 Quản lý website
               </Link>
             ) : (

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { history } from "../../App";
 import {
   dangKyKhoaHocApi,
   layChiTietKhoaHocApi,
@@ -10,13 +11,20 @@ import { getUserInfoApi } from "./../../Redux/Actions/UserAction";
 
 export default function CourseDetail(props) {
   const { chiTietKhoaHoc } = useSelector((state) => state.CourseReducer);
-  const { thongTinTaiKhoan } = useSelector((state) => state.UserReducer);
+  const { thongTinTaiKhoan, taiKhoan } = useSelector(
+    (state) => state.UserReducer
+  );
   const dispatch = useDispatch();
-  console.log(chiTietKhoaHoc);
 
   useEffect(() => {
-    dispatch(layChiTietKhoaHocApi(props.match.params.maKhoaHoc));
+    if (taiKhoan !== "") {
+      dispatch(getUserInfoApi(taiKhoan));
+      dispatch(layChiTietKhoaHocApi(props.match.params.maKhoaHoc));
+    } else {
+      history.push("/login");
+    }
   }, [props.match.params.maKhoaHoc]);
+
   return (
     <div>
       <div className="courseDetail__wrapper">
@@ -30,7 +38,7 @@ export default function CourseDetail(props) {
               <p className="courseDetail_content_item">
                 Lượt xem: {chiTietKhoaHoc.luotXem}
               </p>
-              {thongTinTaiKhoan.chiTietKhoaHocGhiDanh.findIndex(
+              {thongTinTaiKhoan.chiTietKhoaHocGhiDanh?.findIndex(
                 (item) => item.maKhoaHoc === props.match.params.maKhoaHoc
               ) !== -1 ? (
                 <NavLink

@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
 import Carousel from "../../Components/Carousel/Carousel";
-import Header from "../../Components/Header/Header";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getCourseListApi } from "./../../Redux/Actions/eLearningAction";
-import Footer from "../../Components/Footer/Footer";
 import { NavLink } from "react-router-dom";
 import CourseItem from "../../Components/CourseItem.js/CourseItem";
 import { getUserInfoApi } from "../../Redux/Actions/UserAction";
