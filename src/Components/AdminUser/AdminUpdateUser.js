@@ -30,6 +30,7 @@ export default function AdminUpdateUserModal(props) {
       hoTen: Yup.string().required("Họ tên không được bỏ trống"),
       soDT: Yup.string().matches(phoneRegex, "Số điện thoại không hợp lệ"),
     }),
+    enableReinitialize: true,
   });
 
   const handleUpdateUserFn = () => {
@@ -52,7 +53,11 @@ export default function AdminUpdateUserModal(props) {
           </button>
         </div>
         <div className="modal-body">
-          <form className="needs-validation" id="addUserForm">
+          <form
+            className="needs-validation"
+            id="addUserForm"
+            enableReinitialize={formik.enableReinitialize}
+          >
             <div className="row">
               <div className="col-md-6 mb-3">
                 <label htmlFor="taiKhoan">Tài Khoản</label>
@@ -60,7 +65,7 @@ export default function AdminUpdateUserModal(props) {
                   type="text"
                   className="form-control"
                   name="taiKhoan"
-                  defaultValue={props.user.taiKhoan}
+                  value={props.user.taiKhoan}
                   disabled
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -75,7 +80,7 @@ export default function AdminUpdateUserModal(props) {
                   type="text"
                   className="form-control"
                   name="hoTen"
-                  defaultValue={props.user.hoTen}
+                  value={props.user.hoTen}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
@@ -117,7 +122,7 @@ export default function AdminUpdateUserModal(props) {
                   type="text"
                   className="form-control"
                   name="soDt"
-                  defaultValue={props.user.soDT}
+                  value={props.user.soDT}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
@@ -131,7 +136,7 @@ export default function AdminUpdateUserModal(props) {
                   type="text"
                   className="form-control"
                   name="email"
-                  defaultValue={props.user.email}
+                  value={props.user.email}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />

@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addCourseApi } from "../../Redux/Actions/AdminAction";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { removeAccents, getDateFormatted } from "../../util/AddFunctions";
+import { DropzoneArea } from "material-ui-dropzone";
 
 export default function AdminAddCourseModal(props) {
   const { danhMucKhoaHoc } = useSelector((state) => state.CourseReducer);
   const { danhSachNguoiDung } = useSelector((state) => state.AdminUserReducer);
+  const [picture, setPicture] = useState(null);
+
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -17,7 +20,7 @@ export default function AdminAddCourseModal(props) {
       moTa: "",
       luotXem: 0,
       danhGia: 0,
-      hinhAnh: "",
+      hinhAnh: ".jpg",
       maNhom: "GP08",
       ngayTao: getDateFormatted(),
       maDanhMucKhoaHoc: "",
@@ -36,6 +39,7 @@ export default function AdminAddCourseModal(props) {
     const formValue = {
       ...formik.values,
       biDanh: removeAccents(formik.values.tenKhoaHoc),
+      picture: picture,
     };
     dispatch(addCourseApi(formValue));
   };
@@ -48,6 +52,7 @@ export default function AdminAddCourseModal(props) {
       );
     });
   };
+
   const renderDanhSachNguoiDung = () => {
     return danhSachNguoiDung
       .filter((item) => item.maLoaiNguoiDung === "GV")
@@ -175,18 +180,6 @@ export default function AdminAddCourseModal(props) {
                 />
               </div>
               <div className="col-md-6 mb-3">
-                <div className="form-group">
-                  <label htmlFor="hinhMon">Hình ảnh</label>
-                  <input
-                    type="file"
-                    className="form-control-file"
-                    name="hinhAnh"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                </div>
-              </div>
-              <div className="col-md-12 mb-3">
                 <label htmlFor="moTa">Mô Tả</label>
                 <textarea
                   className="form-control"
@@ -198,6 +191,18 @@ export default function AdminAddCourseModal(props) {
                 />
                 <div id="invalidTen" className="invalid-form text-danger">
                   {formik.errors.moTa}
+                </div>
+              </div>
+              <div className="col-md-6 mb-3">
+                <div className="form-group">
+                  <DropzoneArea
+                    filesLimit={1}
+                    showAlerts={false}
+                    acceptedFiles={["image/*"]}
+                    dropzoneText={"Drag and drop an image here or click"}
+                    onChange={(image) => setPicture(image[0])}
+                    maxFileSize={5000000}
+                  />
                 </div>
               </div>
             </div>

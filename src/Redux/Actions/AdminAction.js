@@ -203,6 +203,7 @@ export const deleteCourseRegisterApi = (data) => {
 };
 // CRUD courses
 export const addCourseApi = (data) => {
+  console.log(data);
   return async (dispatch) => {
     try {
       let result = await axios({
@@ -213,20 +214,21 @@ export const addCourseApi = (data) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      let frm = new FormData();
-      frm.append("file", data.hinhAnh);
-      frm.append("tenKhoaHoc", result.data.tenKhoaHoc);
-      let result1 = await axios({
-        url: `https://elearning0706.cybersoft.edu.vn/api/QuanLyKhoaHoc/UploadHinhAnhKhoaHoc`,
-        method: "POST",
-        data: frm,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      alert(result.data);
+      if (data.picture) {
+        let frm = new FormData();
+        frm.append("file", data.picture);
+        frm.append("tenKhoaHoc", result.data.tenKhoaHoc);
+        let result1 = await axios({
+          url: `https://elearning0706.cybersoft.edu.vn/api/QuanLyKhoaHoc/UploadHinhAnhKhoaHoc`,
+          method: "POST",
+          data: frm,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log(result1.data);
+      }
       console.log(result.data);
-      console.log(result1.data);
     } catch (err) {
       console.log(err);
     }
@@ -243,20 +245,21 @@ export const updateCourseApi = (data) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      let frm = new FormData();
-      frm.append("file", data.hinhAnh);
-      frm.append("tenKhoaHoc", result.data.tenKhoaHoc);
-      let result1 = await axios({
-        url: `https://elearning0706.cybersoft.edu.vn/api/QuanLyKhoaHoc/UploadHinhAnhKhoaHoc`,
-        method: "POST",
-        data: frm,
-        // headers: {
-        //   Authorization: `Bearer ${token}`,
-        // },
-      });
-      alert(result.data);
+      if (data.picture) {
+        let frm = new FormData();
+        frm.append("file", data.picture);
+        frm.append("tenKhoaHoc", result.data.tenKhoaHoc);
+        let result1 = await axios({
+          url: `https://elearning0706.cybersoft.edu.vn/api/QuanLyKhoaHoc/UploadHinhAnhKhoaHoc`,
+          method: "POST",
+          data: frm,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log(result1.data);
+      }
       console.log(result.data);
-      console.log(result1.data);
     } catch (err) {
       console.log(err);
     }

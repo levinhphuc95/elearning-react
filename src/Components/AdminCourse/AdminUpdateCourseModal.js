@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCourseApi } from "../../Redux/Actions/AdminAction";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { removeAccents } from "../../util/AddFunctions";
+import { DropzoneArea } from "material-ui-dropzone";
+import { CardMedia } from "@material-ui/core";
 
 export default function AdminAddCourseModal(props) {
-  console.log("props", props.khoaHoc.danhMucKhoaHoc.maDanhMucKhoahoc);
   const { danhMucKhoaHoc } = useSelector((state) => state.CourseReducer);
   const { danhSachNguoiDung } = useSelector((state) => state.AdminUserReducer);
+  const [picture, setPicture] = useState(null);
+
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -31,11 +34,13 @@ export default function AdminAddCourseModal(props) {
       danhGia: Yup.string().required("Đánh giá không được bỏ trống"),
       mota: Yup.string().required("Mã khóa học không được bỏ trống"),
     }),
+    enableReinitialize: true,
   });
   const handleUpdateCourseFn = () => {
     const formValue = {
       ...formik.values,
       biDanh: removeAccents(formik.values.tenKhoaHoc),
+      picture: picture,
     };
     console.log(formValue);
     dispatch(updateCourseApi(formValue));
@@ -87,6 +92,7 @@ export default function AdminAddCourseModal(props) {
             className="needs-validation"
             id="addUserForm"
             onSubmit={formik.handleSubmit}
+            enableReinitialize={formik.enableReinitialize}
           >
             <div className="row">
               <div className="col-md-8 mb-3">
@@ -95,7 +101,7 @@ export default function AdminAddCourseModal(props) {
                   type="text"
                   className="form-control"
                   name="maKhoaHoc"
-                  placeholder={props.khoaHoc.maKhoaHoc}
+                  value={props.khoaHoc.maKhoaHoc}
                   disabled
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -111,7 +117,7 @@ export default function AdminAddCourseModal(props) {
                   className="form-control"
                   name="luotXem"
                   disabled
-                  defaultValue={props.khoaHoc.luotXem}
+                  value={props.khoaHoc.luotXem}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
@@ -125,7 +131,7 @@ export default function AdminAddCourseModal(props) {
                   type="text"
                   className="form-control"
                   name="tenKhoaHoc"
-                  defaultValue={props.khoaHoc.tenKhoaHoc}
+                  value={props.khoaHoc.tenKhoaHoc}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
@@ -139,7 +145,7 @@ export default function AdminAddCourseModal(props) {
                   type="text"
                   className="form-control"
                   name="danhGia"
-                  placeholder="0"
+                  value="0"
                   disabled
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -153,7 +159,7 @@ export default function AdminAddCourseModal(props) {
                 <select
                   className="custom-select d-block w-100"
                   name="maDanhMucKhoaHoc"
-                  defaultValue={props.khoaHoc.danhMucKhoaHoc.maDanhMucKhoahoc}
+                  value={props.khoaHoc.danhMucKhoaHoc.maDanhMucKhoahoc}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 >
@@ -165,7 +171,7 @@ export default function AdminAddCourseModal(props) {
                 <select
                   className="custom-select d-block w-100"
                   name="taiKhoanNguoiTao"
-                  placeholder={props.khoaHoc.nguoiTao.hoTen}
+                  value={props.khoaHoc.nguoiTao.hoTen}
                   disabled
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -179,36 +185,50 @@ export default function AdminAddCourseModal(props) {
                   type="text"
                   className="form-control"
                   name="ngayTao"
-                  placeholder={props.khoaHoc.ngayTao}
+                  value={props.khoaHoc.ngayTao}
                   disabled
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
               </div>
               <div className="col-md-6 mb-3">
-                <div className="form-group">
-                  <label htmlFor="hinhMon">Hình ảnh</label>
-                  <input
-                    type="file"
-                    className="form-control-file"
-                    name="hinhAnh"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                </div>
-              </div>
-              <div className="col-md-12 mb-3">
                 <label htmlFor="moTa">Mô Tả</label>
                 <textarea
                   className="form-control"
                   name="moTa"
                   rows={3}
-                  defaultValue={props.khoaHoc.moTa}
+                  value={props.khoaHoc.moTa}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
                 <div id="invalidTen" className="invalid-form text-danger">
                   {formik.errors.moTa}
+                </div>
+              </div>
+              <div className="col-md-6 mb-3">
+                <div className="form-group">
+                  <DropzoneArea
+                    filesLimit={1}
+                    showAlerts={false}
+                    acceptedFiles={["image/*"]}
+                    dropzoneText={"Drag and drop an image here or click"}
+                    onChange={(image) => {
+                      setPicture(image[0]);
+                    }}
+                    maxFileSize={5000000}
+                  />
+                </div>
+              </div>
+              <div className="col-md-6 mb-3">
+                <div className="form-group" style={{ height: "100%" }}>
+                  {formik.values.hinhAnh ? (
+                    <CardMedia
+                      image={formik.values.hinhAnh}
+                      style={{ height: "100%" }}
+                    />
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
             </div>
