@@ -9,6 +9,7 @@ export default function AdminUpdateUserModal(props) {
   console.log(props.user);
   const dispatch = useDispatch();
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
       taiKhoan: props.user.taiKhoan,
       matKhau: "",
@@ -30,7 +31,6 @@ export default function AdminUpdateUserModal(props) {
       hoTen: Yup.string().required("Họ tên không được bỏ trống"),
       soDT: Yup.string().matches(phoneRegex, "Số điện thoại không hợp lệ"),
     }),
-    enableReinitialize: true,
   });
 
   const handleUpdateUserFn = () => {
@@ -65,7 +65,7 @@ export default function AdminUpdateUserModal(props) {
                   type="text"
                   className="form-control"
                   name="taiKhoan"
-                  value={props.user.taiKhoan}
+                  value={formik.values.taiKhoan}
                   disabled
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -80,7 +80,7 @@ export default function AdminUpdateUserModal(props) {
                   type="text"
                   className="form-control"
                   name="hoTen"
-                  value={props.user.hoTen}
+                  value={formik.values.hoTen}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
@@ -122,7 +122,7 @@ export default function AdminUpdateUserModal(props) {
                   type="text"
                   className="form-control"
                   name="soDt"
-                  value={props.user.soDT}
+                  value={formik.values.soDT}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
@@ -136,7 +136,7 @@ export default function AdminUpdateUserModal(props) {
                   type="text"
                   className="form-control"
                   name="email"
-                  value={props.user.email}
+                  value={formik.values.email}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />

@@ -11,14 +11,13 @@ export default function AdminCourseSearchUser(props) {
     (state) => state.AdminUserReducer
   );
   const dispatch = useDispatch();
-  console.log(danhSachNguoiDungChuaGhiDanh);
 
   const approveCourseRegister = () => {
     let nguoiDung = danhSachNguoiDungChuaGhiDanh.find(
       (item) => item.hoTen === searchValue
     );
     let data = { maKhoaHoc: props.maKhoaHoc, taiKhoan: nguoiDung.taiKhoan };
-    console.log(data)
+    console.log(data);
     dispatch(approveCourseRegisterApi(data));
   };
 
@@ -28,9 +27,7 @@ export default function AdminCourseSearchUser(props) {
         <Autocomplete
           id="free-solo-demo"
           freeSolo
-          options={danhSachNguoiDungChuaGhiDanh?.map(
-            (option) => option.hoTen
-          )}
+          options={danhSachNguoiDungChuaGhiDanh?.map((option) => option.hoTen)}
           onChange={(e, value) => {
             setSearchValue(value);
           }}
@@ -44,8 +41,11 @@ export default function AdminCourseSearchUser(props) {
           )}
         />
       </div>
-      <div className="col-2 text-center align-text-center">
-        <button className="btn btn-primary" onClick={approveCourseRegister}>
+      <div className="col-2 text-center align-text-center d-flex">
+        <button
+          className="btn btn-primary m-auto"
+          onClick={approveCourseRegister}
+        >
           Ghi danh
         </button>
       </div>

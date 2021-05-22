@@ -1,13 +1,11 @@
 import React, { Fragment } from "react";
-import { Route } from "react-router";
+import { Route } from "react-router-dom";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 
 export default function HomeTemplate(props) {
   return (
     <Fragment>
-      {/* <Header></Header>
-      <Route exact path={path} component={component}></Route> */}
       <Route
         path={props.path}
         exact

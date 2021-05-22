@@ -14,6 +14,7 @@ export default function AdminAddCourseModal(props) {
 
   const dispatch = useDispatch();
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
       maKhoaHoc: props.khoaHoc.maKhoaHoc,
       biDanh: props.khoaHoc.biDanh,
@@ -34,8 +35,8 @@ export default function AdminAddCourseModal(props) {
       danhGia: Yup.string().required("Đánh giá không được bỏ trống"),
       mota: Yup.string().required("Mã khóa học không được bỏ trống"),
     }),
-    enableReinitialize: true,
   });
+
   const handleUpdateCourseFn = () => {
     const formValue = {
       ...formik.values,
@@ -101,7 +102,7 @@ export default function AdminAddCourseModal(props) {
                   type="text"
                   className="form-control"
                   name="maKhoaHoc"
-                  value={props.khoaHoc.maKhoaHoc}
+                  value={formik.values.maKhoaHoc}
                   disabled
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -117,7 +118,7 @@ export default function AdminAddCourseModal(props) {
                   className="form-control"
                   name="luotXem"
                   disabled
-                  value={props.khoaHoc.luotXem}
+                  value={formik.values.luotXem}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
@@ -131,7 +132,7 @@ export default function AdminAddCourseModal(props) {
                   type="text"
                   className="form-control"
                   name="tenKhoaHoc"
-                  value={props.khoaHoc.tenKhoaHoc}
+                  value={formik.values.tenKhoaHoc}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
@@ -159,7 +160,7 @@ export default function AdminAddCourseModal(props) {
                 <select
                   className="custom-select d-block w-100"
                   name="maDanhMucKhoaHoc"
-                  value={props.khoaHoc.danhMucKhoaHoc.maDanhMucKhoahoc}
+                  value={formik.values.maDanhMucKhoaHoc}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 >
@@ -171,7 +172,7 @@ export default function AdminAddCourseModal(props) {
                 <select
                   className="custom-select d-block w-100"
                   name="taiKhoanNguoiTao"
-                  value={props.khoaHoc.nguoiTao.hoTen}
+                  value={formik.values.taiKhoanNguoiTao}
                   disabled
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -185,7 +186,7 @@ export default function AdminAddCourseModal(props) {
                   type="text"
                   className="form-control"
                   name="ngayTao"
-                  value={props.khoaHoc.ngayTao}
+                  value={formik.values.ngayTao}
                   disabled
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -197,7 +198,7 @@ export default function AdminAddCourseModal(props) {
                   className="form-control"
                   name="moTa"
                   rows={3}
-                  value={props.khoaHoc.moTa}
+                  value={formik.values.moTa}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />

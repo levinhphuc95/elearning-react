@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import TextField from "@material-ui/core/TextField";
@@ -42,8 +41,11 @@ export default function AdminUserSearchCourse(props) {
           )}
         />
       </div>
-      <div className="col-2 text-center align-text-center">
-        <button className="btn btn-primary" onClick={approveCourseRegister}>
+      <div className="col-2 text-center align-text-center d-flex">
+        <button
+          className="btn btn-primary m-auto"
+          onClick={approveCourseRegister}
+        >
           Ghi danh
         </button>
       </div>

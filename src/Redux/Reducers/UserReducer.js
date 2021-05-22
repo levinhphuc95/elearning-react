@@ -6,19 +6,13 @@ import {
   XU_LY_DANG_NHAP_THANH_CONG,
 } from "./../Constants/eLearningConst";
 
-// let tenDN = "";
-// let maLoaiND = "";
 let tk = "";
 
 if (localStorage.getItem(USER_LOGIN)) {
   let userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
-  // tenDN = userLogin.hoTen;
-  // maLoaiND = userLogin.maLoaiNguoiDung;
   tk = userLogin.taiKhoan;
 }
 const initialState = {
-  // tenDangNhap: tenDN,
-  // maLoaiNguoiDung: maLoaiND,
   taiKhoan: tk,
   thongTinTaiKhoan: {},
 };
@@ -34,8 +28,6 @@ export default (state = initialState, action) => {
       localStorage.removeItem(ACCESS_TOKEN);
       return {
         ...state,
-        // tenDangNhap: "",
-        // maLoaiND: "",
         taiKhoan: "",
         thongTinTaiKhoan: {},
       };

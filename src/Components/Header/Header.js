@@ -41,7 +41,7 @@ export default function Header(props) {
   };
   return (
     <div className="navbar__wrapper">
-      <nav className="navbar navbar-light navbar-expand-md navigation-clean-search bg-light">
+      <nav className="navbar navbar-light navbar-expand-xl navigation-clean-search bg-light">
         <div className="container-fluid">
           <NavLink className="navbar-brand" to="/">
             <img
@@ -97,7 +97,6 @@ export default function Header(props) {
             <div>
               {taiKhoan.trim() !== "" ? (
                 <UserInfo
-                  // userName={tenDangNhap}
                   maLoaiND={thongTinTaiKhoan.maLoaiNguoiDung}
                   taiKhoan={taiKhoan}
                 />

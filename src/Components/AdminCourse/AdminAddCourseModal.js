@@ -159,7 +159,6 @@ export default function AdminAddCourseModal(props) {
                 <label htmlFor="maLoaiNguoiDung">Người tạo</label>
                 <select
                   className="custom-select d-block w-100"
-                  id="khuyenMai"
                   name="taiKhoanNguoiTao"
                   defaultValue="HV"
                   onChange={formik.handleChange}

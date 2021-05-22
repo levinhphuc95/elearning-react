@@ -21,7 +21,7 @@ export default function CourseDetail(props) {
       dispatch(getUserInfoApi(taiKhoan));
       dispatch(layChiTietKhoaHocApi(props.match.params.maKhoaHoc));
     } else {
-      history.push("/login");
+      history.push("/login/sign-in");
     }
   }, [props.match.params.maKhoaHoc]);
 

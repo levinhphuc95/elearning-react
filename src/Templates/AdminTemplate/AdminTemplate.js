@@ -1,24 +1,28 @@
 import React, { Fragment } from "react";
-import { Route } from "react-router";
+import { useSelector } from "react-redux";
+import { Redirect, Route } from "react-router-dom";
 import AdminHeader from "../../Components/Header/AdminHeader";
 
-export default function HomeTemplate(props) {
-  return (
-    <Fragment>
-      {/* <Header></Header>
-      <Route exact path={path} component={component}></Route> */}
-      <Route
-        path={props.path}
-        exact
-        render={(propsRoute) => {
-          return (
-            <Fragment>
-              <AdminHeader{...propsRoute}></AdminHeader>
-              <props.component {...propsRoute}></props.component>
-            </Fragment>
-          );
-        }}
-      ></Route>
-    </Fragment>
-  );
+export default function AdminTemplate(props) {
+  const { taiKhoan } = useSelector((state) => state.UserReducer);
+  if (taiKhoan) {
+    return (
+      <Fragment>
+        <Route
+          path={props.path}
+          exact
+          render={(propsRoute) => {
+            return (
+              <Fragment>
+                <AdminHeader {...propsRoute}></AdminHeader>
+                <props.component {...propsRoute}></props.component>
+              </Fragment>
+            );
+          }}
+        ></Route>
+      </Fragment>
+    );
+  } else {
+    return <Redirect to="/login/sign-in"></Redirect>;
+  }
 }

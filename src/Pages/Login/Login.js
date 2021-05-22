@@ -70,8 +70,8 @@ export default function Login(props) {
                   onChange={formikLogin.handleChange}
                   onBlur={formikLogin.handleBlur}
                 />
-                <p>{formikLogin.errors.taiKhoan}</p>
               </div>
+              <p className="text-danger">{formikLogin.errors.taiKhoan}</p>
               <div className="input-field">
                 <i className="fas fa-lock" />
                 <input
@@ -81,8 +81,8 @@ export default function Login(props) {
                   onChange={formikLogin.handleChange}
                   onBlur={formikLogin.handleBlur}
                 />
-                <p>{formikLogin.errors.matKhau}</p>
               </div>
+              <p className="text-danger">{formikLogin.errors.matKhau}</p>
               <input
                 type="submit"
                 className="btn solid"

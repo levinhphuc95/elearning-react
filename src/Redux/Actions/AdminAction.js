@@ -1,5 +1,4 @@
 import axios from "axios";
-import { history } from "../../App";
 import {
   LAY_DANH_SACH_KHOA_HOC_CHO_XAC_THUC,
   LAY_DANH_SACH_KHOA_HOC_CHUA_GHI_DANH,

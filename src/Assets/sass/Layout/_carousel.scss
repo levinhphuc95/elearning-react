@@ -3,6 +3,7 @@
     width: 100%;
     height: 670px;
     background-color: black;
+
     .carousel_content_wrapper {
       position: absolute;
       height: 670px;
@@ -30,7 +31,7 @@
         color: $color-3;
       }
       .carousel_content_text {
-        color: ivory;
+        color: $color-2;
         text-align: center;
       }
       .carousel_content_button_1 {
