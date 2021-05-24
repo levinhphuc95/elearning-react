@@ -87,7 +87,7 @@ export default function AdminAddUserModal(props) {
               <div className="col-md-6 mb-3">
                 <label htmlFor="loai">Mật Khẩu</label>
                 <input
-                  type="text"
+                  type="password"
                   className="form-control"
                   name="matKhau"
                   placeholder="Nhập mật khẩu"
@@ -148,6 +148,7 @@ export default function AdminAddUserModal(props) {
             type="button"
             form="addUserForm"
             className="btn btn-success"
+            data-dismiss="modal"
             onClick={handleAddUserFn}
           >
             Thêm

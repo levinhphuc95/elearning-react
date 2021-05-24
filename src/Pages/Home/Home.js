@@ -6,10 +6,13 @@ import { getCourseListApi } from "./../../Redux/Actions/eLearningAction";
 import { NavLink } from "react-router-dom";
 import CourseItem from "../../Components/CourseItem.js/CourseItem";
 import { getUserInfoApi } from "../../Redux/Actions/UserAction";
+import { Spinner } from "react-bootstrap";
 
 export default function Home() {
-  const { danhSachKhoaHoc } = useSelector((state) => state.CourseReducer);
-  const { taiKhoan } = useSelector((state) => state.UserReducer);
+  const { danhSachKhoaHoc, courseLoading } = useSelector(
+    (state) => state.CourseReducer
+  );
+  const { taiKhoan, userLoading } = useSelector((state) => state.UserReducer);
   const dispatch = useDispatch();
 
   const renderCourseList = () => {
@@ -26,13 +29,34 @@ export default function Home() {
       dispatch(getUserInfoApi(taiKhoan));
     }
   }, []);
-  return (
-    <div>
-      <Carousel></Carousel>
-      <div className="container mt-5">
-        <h3>Các khóa học mới nhất</h3>
-        <div className="row">{renderCourseList()}</div>
+
+  useEffect(() => {
+    return () => {
+      dispatch({ type: "RESET_LOADING" });
+    };
+  }, []);
+
+  let body = "";
+  if (courseLoading) {
+    body = (
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: "100vh" }}
+      >
+        <Spinner animation="border" variant="info" />
       </div>
-    </div>
-  );
+    );
+  } else {
+    body = (
+      <div>
+        <Carousel></Carousel>
+        <div className="container mt-5">
+          <h3>Các khóa học mới nhất</h3>
+          <div className="row">{renderCourseList()}</div>
+        </div>
+      </div>
+    );
+  }
+
+  return <>{body}</>;
 }

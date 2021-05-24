@@ -10,6 +10,7 @@ import {
   LAY_DANH_SACH_NGUOI_DUNG_DA_XAC_THUC,
 } from "./../Constants/eLearningConst";
 import { USER_LOGIN } from "./../../util/setting";
+import { getCourseListApi } from "./eLearningAction";
 
 let taiKhoan = "";
 let token = "";
@@ -63,8 +64,7 @@ export const deleteUserApi = (taiKhoan) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      getUserListApi();
-      alert(result.data);
+      dispatch(getUserListApi());
     } catch (err) {
       console.log(err);
     }
@@ -81,7 +81,7 @@ export const addUserApi = (data) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      alert(result.data);
+      dispatch(getUserListApi());
     } catch (err) {
       console.log(err);
     }
@@ -99,7 +99,7 @@ export const updateUserApi = (data) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      alert(result.data);
+      dispatch(getUserListApi());
     } catch (err) {
       console.log(err);
     }
@@ -177,6 +177,10 @@ export const approveCourseRegisterApi = (data) => {
           Authorization: `Bearer ${token}`,
         },
       });
+      dispatch(getCourseListWaitingApi(data.taiKhoan));
+      dispatch(getCourseListApprovedApi(data.taiKhoan));
+      dispatch(getUserListWaitingApi(data.maKhoaHoc));
+      dispatch(getUserListApprovedApi(data.maKhoaHoc));
       alert(result.data);
     } catch (err) {
       console.log(err);
@@ -194,6 +198,10 @@ export const deleteCourseRegisterApi = (data) => {
           Authorization: `Bearer ${token}`,
         },
       });
+      dispatch(getCourseListWaitingApi(data.taiKhoan));
+      dispatch(getCourseListApprovedApi(data.taiKhoan));
+      dispatch(getUserListWaitingApi(data.maKhoaHoc));
+      dispatch(getUserListApprovedApi(data.maKhoaHoc));
       alert(result.data);
     } catch (err) {
       console.log(err);
@@ -202,7 +210,6 @@ export const deleteCourseRegisterApi = (data) => {
 };
 // CRUD courses
 export const addCourseApi = (data) => {
-  console.log(data);
   return async (dispatch) => {
     try {
       let result = await axios({
@@ -225,9 +232,10 @@ export const addCourseApi = (data) => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log(result1.data);
+        // console.log(result1.data);
       }
-      console.log(result.data);
+      // console.log(result.data);
+      dispatch(getCourseListApi());
     } catch (err) {
       console.log(err);
     }
@@ -256,9 +264,9 @@ export const updateCourseApi = (data) => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log(result1.data);
+        // console.log(result1.data);
       }
-      console.log(result.data);
+      dispatch(getCourseListApi());
     } catch (err) {
       console.log(err);
     }
@@ -274,7 +282,7 @@ export const deleteCourseApi = (maKhoaHoc) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      alert(result.data);
+      dispatch(getCourseListApi());
     } catch (err) {
       console.log(err);
     }

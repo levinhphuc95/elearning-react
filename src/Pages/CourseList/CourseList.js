@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
+import { Spinner } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import CourseItem from "../../Components/CourseItem.js/CourseItem";
 import { layKhoaHocTheoDanhMucApi } from "./../../Redux/Actions/eLearningAction";
 
 export default function CourseList(props) {
-  const { khoaHocTheoDanhMuc, danhMucKhoaHoc } = useSelector(
+  const { khoaHocTheoDanhMuc, danhMucKhoaHoc, courseLoading } = useSelector(
     (state) => state.CourseReducer
   );
   const dispatch = useDispatch();
@@ -30,14 +31,32 @@ export default function CourseList(props) {
     dispatch(layKhoaHocTheoDanhMucApi(props.match.params.maDanhMucKhoaHoc));
   }, [props.match.params.maDanhMucKhoaHoc]);
 
-  return (
-    <div>
+  useEffect(() => {
+    return () => {
+      dispatch({ type: "RESET_LOADING" });
+    };
+  }, []);
+
+  let body = "";
+  if (courseLoading) {
+    body = (
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: "100vh" }}
+      >
+        <Spinner animation="border" variant="info" />
+      </div>
+    );
+  } else {
+    body = (
       <div className="course_list_wrapper">
         <div className="course_list_title">{renderCourseListPageTitle()}</div>
         <div className="container">
           <div className="row">{renderKhoaHocTheoDanhMuc()}</div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  return <>{body}</>;
 }

@@ -5,13 +5,15 @@ import { useState } from "react";
 import { getCourseListApi } from "../../Redux/Actions/eLearningAction";
 import { getUserInfoApi } from "../../Redux/Actions/UserAction";
 import { history } from "../../App";
+import { Spinner } from "react-bootstrap";
 
 export default function CourseSearch(props) {
-  const { thongTinTaiKhoan, taiKhoan } = useSelector(
+  const { thongTinTaiKhoan, taiKhoan, userLoading } = useSelector(
     (state) => state.UserReducer
   );
-  const { danhSachKhoaHoc } = useSelector((state) => state.CourseReducer);
-  console.log(taiKhoan, thongTinTaiKhoan, danhSachKhoaHoc);
+  const { danhSachKhoaHoc, courseLoading } = useSelector(
+    (state) => state.CourseReducer
+  );
 
   const [searchValue, setSearchValue] = useState("");
 
@@ -19,11 +21,18 @@ export default function CourseSearch(props) {
 
   useEffect(() => {
     if (taiKhoan !== "") {
+      console.log(taiKhoan);
       dispatch(getUserInfoApi(taiKhoan));
       dispatch(getCourseListApi());
     } else {
-      history.push("/login");
+      history.push("/login/sign-in");
     }
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      dispatch({ type: "RESET_LOADING" });
+    };
   }, []);
 
   const handleChangeInput = (event) => {
@@ -61,9 +70,18 @@ export default function CourseSearch(props) {
       );
     });
   };
-
-  return (
-    <div>
+  let body = "";
+  if (userLoading || courseLoading) {
+    body = (
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: "100vh" }}
+      >
+        <Spinner animation="border" variant="info" />
+      </div>
+    );
+  } else {
+    body = (
       <div className="container courseSearch__wrapper">
         <div className="row mx-2 my-5">
           <h3 className="col-md-6">Danh sách khóa học đã tham gia</h3>
@@ -77,6 +95,7 @@ export default function CourseSearch(props) {
         </div>
         {renderCourseUserPage()}
       </div>
-    </div>
-  );
+    );
+  }
+  return <div>{body}</div>;
 }

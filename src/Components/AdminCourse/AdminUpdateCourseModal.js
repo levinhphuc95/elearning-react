@@ -239,6 +239,7 @@ export default function AdminAddCourseModal(props) {
           <button
             type="button"
             className="btn btn-warning"
+            data-dismiss="modal"
             onClick={handleUpdateCourseFn}
           >
             Cập nhật

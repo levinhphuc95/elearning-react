@@ -14,7 +14,8 @@ if (localStorage.getItem(USER_LOGIN)) {
 }
 const initialState = {
   taiKhoan: tk,
-  thongTinTaiKhoan: {},
+  thongTinTaiKhoan: "",
+  userLoading: true,
 };
 
 export default (state = initialState, action) => {
@@ -33,11 +34,21 @@ export default (state = initialState, action) => {
       };
     }
     case LAY_THONG_TIN_TAI_KHOAN: {
-      return { ...state, thongTinTaiKhoan: action.thongTinTaiKhoan };
+      return {
+        ...state,
+        thongTinTaiKhoan: action.thongTinTaiKhoan,
+        userLoading: false,
+      };
     }
     case CAP_NHAT_THONG_TIN_NGUOI_DUNG: {
-      return { ...state, thongTinTaiKhoan: action.thongTinTaiKhoanCapNhat };
+      return {
+        ...state,
+        thongTinTaiKhoan: action.thongTinTaiKhoanCapNhat,
+        userLoading: false,
+      };
     }
+    case "RESET_LOADING":
+      return { ...state, userLoading: true };
     default:
       return state;
   }

@@ -152,6 +152,7 @@ export default function AdminUpdateUserModal(props) {
             type="button"
             form="addUserForm"
             className="btn btn-warning"
+            data-dismiss="modal"
             onClick={handleUpdateUserFn}
           >
             Cập nhật

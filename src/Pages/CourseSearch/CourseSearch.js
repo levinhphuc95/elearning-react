@@ -1,15 +1,24 @@
 import React, { useEffect } from "react";
+import { Spinner } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { layKhoaHocTheoTimKiemApi } from "./../../Redux/Actions/eLearningAction";
 
 export default function CourseSearch(props) {
-  const { khoaHocTheoTimKiem } = useSelector((state) => state.CourseReducer);
+  const { khoaHocTheoTimKiem, courseLoading } = useSelector(
+    (state) => state.CourseReducer
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(layKhoaHocTheoTimKiemApi(props.match.params.searchKey));
   }, [props.match.params.searchKey]);
+
+  useEffect(() => {
+    return () => {
+      dispatch({ type: "RESET_LOADING" });
+    };
+  }, []);
 
   const renderCourseSearchPage = () => {
     return khoaHocTheoTimKiem.map((item, index) => {
@@ -40,12 +49,24 @@ export default function CourseSearch(props) {
     );
   };
 
-  return (
-    <div>
+  let body = "";
+  if (courseLoading) {
+    body = (
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: "100vh" }}
+      >
+        <Spinner animation="border" variant="info" />
+      </div>
+    );
+  } else {
+    body = (
       <div className="container courseSearch__wrapper">
         {renderTitleSearchPage()}
         {renderCourseSearchPage()}
       </div>
-    </div>
-  );
+    );
+  }
+
+  return <>{body}</>;
 }

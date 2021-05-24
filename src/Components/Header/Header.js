@@ -50,14 +50,18 @@ export default function Header(props) {
             />
           </NavLink>
           <button
-            className="navbar-toggler"
+            className="navbar-toggler mr-3"
             data-toggle="collapse"
             data-target="#navcol-1"
           >
             <span className="sr-only">Toggle navigation</span>
-            <span className="navbar-toggler-icon" />
+            <span className="navbar-toggler-icon " />
           </button>
-          <div className="collapse navbar-collapse" id="navcol-1">
+          <div
+            className="collapse navbar-collapse w-100 bg-light px-5"
+            style={{ zIndex: 100, justifyContent: "space-between" }}
+            id="navcol-1"
+          >
             <ul className="nav navbar-nav">
               <li className="nav-item dropdown navbar__item">
                 <a
@@ -76,7 +80,7 @@ export default function Header(props) {
               </li>
             </ul>
             <form
-              className="form-inline w-50 mr-5"
+              className="form-inline"
               target="_self"
               onSubmit={() => {
                 history.push(`/timkiemkhoahoc/${formik.values.searchKey}`);

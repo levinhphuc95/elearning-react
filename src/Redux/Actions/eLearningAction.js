@@ -18,7 +18,7 @@ if (localStorage.getItem(USER_LOGIN)) {
   token = userLogin.accessToken;
 }
 
-export const getCourseListApi = (MaNhom) => {
+export const getCourseListApi = () => {
   return async (dispatch) => {
     try {
       let result = await axios({

@@ -48,9 +48,9 @@ export const loginApi = (userLogin) => {
         JSON.stringify(result.data.accessToken)
       );
       dispatch(getUserInfoApi(result.data.taiKhoan));
-      alert("Đăng nhập thành công");
       history.push("/");
     } catch (err) {
+      alert("Đăng nhập thất bại, vui lòng kiểm tra lại tài khoản và mật khẩu");
       console.log(err);
     }
   };
@@ -71,7 +71,6 @@ export const getUserInfoApi = (taiKhoan) => {
         type: LAY_THONG_TIN_TAI_KHOAN,
         thongTinTaiKhoan: result.data,
       });
-      console.log(result.data);
     } catch (err) {
       console.log(err);
     }

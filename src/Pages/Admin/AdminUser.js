@@ -13,6 +13,7 @@ import ReactPaginate from "react-paginate";
 import AdminUserCourse from "../../Components/AdminUser/AdminUserCourse";
 import AdminAddUser from "../../Components/AdminUser/AdminAddUser";
 import AdminUpdateUser from "../../Components/AdminUser/AdminUpdateUser";
+import { Spinner } from "react-bootstrap";
 
 export default function AdminUser() {
   const dispatch = useDispatch();
@@ -23,13 +24,23 @@ export default function AdminUser() {
   const [offsetPagination, setOffsetPagination] = useState(0);
   const [addUpdateStatus, setAddUpdateStatus] = useState(true); //true:add, false: update
 
-  const { danhSachNguoiDung, danhSachNguoiDungPhanTrang, pageCount } =
-    useSelector((state) => state.AdminUserReducer);
+  const {
+    danhSachNguoiDung,
+    danhSachNguoiDungPhanTrang,
+    pageCount,
+    adminLoading,
+  } = useSelector((state) => state.AdminUserReducer);
 
   useEffect(() => {
     dispatch(getUserListApi());
     dispatch(getUserListSpreadPageApi(1));
   }, [pageCount]);
+
+  useEffect(() => {
+    return () => {
+      dispatch({ type: "RESET_LOADING" });
+    };
+  }, []);
 
   const handleChangeInput = (event) => {
     let { value } = event.target;
@@ -157,128 +168,145 @@ export default function AdminUser() {
     dispatch(getCourseListNotRegisterApi(taiKhoan));
   };
 
-  return (
-    <div className="admin-page-wrapper">
-      <div className="container-fluid">
-        <div className="row">
-          <nav
-            id="sidebarMenu"
-            className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
-          >
-            <div className="sidebar-sticky pt-3">
-              <ul className="nav flex-column">
-                <li className="nav-item">
-                  <Link className="nav-link" to="/admin/courses">
-                    <i className="fa fa-home" />
-                    Quản lý khóa học
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/admin">
-                    <i className="fa fa-utensils" />
-                    Quản lý người dùng
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </nav>
-          <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-            <nav className="my-3" aria-label="breadcrumb">
-              <ol className="breadcrumb">
-                <li className="breadcrumb-item">
-                  <a href="./index.html">Dashboard</a>
-                </li>
-                <li className="breadcrumb-item active" aria-current="page">
-                  Quản lý người dùng
-                </li>
-              </ol>
+  let body = "";
+  if (adminLoading) {
+    body = (
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: "100vh" }}
+      >
+        <Spinner animation="border" variant="info" />
+      </div>
+    );
+  } else {
+    body = (
+      <div className="admin-page-wrapper">
+        <div className="container-fluid">
+          <div className="row">
+            <nav
+              id="sidebarMenu"
+              className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
+            >
+              <div className="sidebar-sticky pt-3">
+                <ul className="nav flex-column">
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/admin/courses">
+                      <i className="fa fa-home" />
+                      Quản lý khóa học
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/admin">
+                      <i className="fa fa-utensils" />
+                      Quản lý người dùng
+                    </Link>
+                  </li>
+                </ul>
+              </div>
             </nav>
-            <h2>Danh Sách Người Dùng</h2>
-            {/* Button trigger modal */}
-            <div className="row">
-              {/* User Search Area */}
-              <div className="col-8">
-                <input
-                  type="text"
-                  name="searchKey"
-                  placeholder="Nhập vào tài khoản hoặc họ tên người dùng"
-                  className="col-md-6"
-                  onChange={handleChangeInput}
-                />
+            <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+              <nav className="my-3" aria-label="breadcrumb">
+                <ol className="breadcrumb">
+                  <li className="breadcrumb-item">
+                    <a href="./index.html">Dashboard</a>
+                  </li>
+                  <li className="breadcrumb-item active" aria-current="page">
+                    Quản lý người dùng
+                  </li>
+                </ol>
+              </nav>
+              <h2>Danh Sách Người Dùng</h2>
+              {/* Button trigger modal */}
+              <div className="row">
+                {/* User Search Area */}
+                <div className="col-8">
+                  <input
+                    type="text"
+                    name="searchKey"
+                    placeholder="Nhập vào tài khoản hoặc họ tên người dùng"
+                    className="col-md-6"
+                    onChange={handleChangeInput}
+                  />
+                </div>
+                {/* Add User Button */}
+                <div className="col-4">
+                  <button
+                    id="btnThem"
+                    type="button"
+                    className="btn btn-success mb-3 text-white"
+                    data-toggle="modal"
+                    data-target="#addUserModal"
+                    onClick={() => {
+                      setAddUpdateStatus(true);
+                    }}
+                  >
+                    Thêm Người Dùng
+                  </button>
+                </div>
               </div>
-              {/* Add User Button */}
-              <div className="col-4">
-                <button
-                  id="btnThem"
-                  type="button"
-                  className="btn btn-success mb-3 text-white"
-                  data-toggle="modal"
-                  data-target="#addUserModal"
-                  onClick={() => {
-                    setAddUpdateStatus(true);
-                  }}
+              <div className=" foodTable">
+                <table
+                  className="table table-striped table-sm"
+                  style={{ overflowX: "auto" }}
                 >
-                  Thêm Người Dùng
-                </button>
+                  <thead>
+                    <tr className="user-table text-white">
+                      <th>STT</th>
+                      <th>Tài khoản</th>
+                      <th>Phân loại</th>
+                      <th>Họ tên</th>
+                      <th>Email</th>
+                      <th>Số điện thoại</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbodyFood">{handleShowDashboard()}</tbody>
+                </table>
+                <div className="pagination-wrapper">
+                  <ReactPaginate
+                    previousLabel={"Trang trước"}
+                    nextLabel={"Trang tiếp"}
+                    breakLabel={"..."}
+                    breakClassName={"break-me"}
+                    pageCount={pageCount}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={handlePageClick}
+                    containerClassName={"pagination"}
+                    activeClassName={"active"}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="table-responsive foodTable">
-              <table className="table table-striped table-sm">
-                <thead>
-                  <tr className="user-table text-white">
-                    <th>STT</th>
-                    <th>Tài khoản</th>
-                    <th>Phân loại</th>
-                    <th>Họ tên</th>
-                    <th>Email</th>
-                    <th>Số điện thoại</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody id="tbodyFood">{handleShowDashboard()}</tbody>
-              </table>
-              <div className="pagination-wrapper">
-                <ReactPaginate
-                  previousLabel={"Trang trước"}
-                  nextLabel={"Trang tiếp"}
-                  breakLabel={"..."}
-                  breakClassName={"break-me"}
-                  pageCount={pageCount}
-                  marginPagesDisplayed={2}
-                  pageRangeDisplayed={5}
-                  onPageChange={handlePageClick}
-                  containerClassName={"pagination"}
-                  activeClassName={"active"}
-                />
-              </div>
-            </div>
-          </main>
+            </main>
+          </div>
+        </div>
+        {/* Add User Modal */}
+        <div
+          className="modal fade"
+          id="addUserModal"
+          tabIndex={-1}
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          {addUpdateStatus ? (
+            <AdminAddUser />
+          ) : (
+            <AdminUpdateUser user={updateUserInfo} />
+          )}
+        </div>
+        {/* User Registration Modal */}
+        <div
+          className="modal fade"
+          id="UserCourseModal"
+          tabIndex={-1}
+          aria-labelledby="adminUserCourse"
+          aria-hidden="true"
+        >
+          <AdminUserCourse taiKhoan={UserModal} />
         </div>
       </div>
-      {/* Add User Modal */}
-      <div
-        className="modal fade"
-        id="addUserModal"
-        tabIndex={-1}
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        {addUpdateStatus ? (
-          <AdminAddUser />
-        ) : (
-          <AdminUpdateUser user={updateUserInfo} />
-        )}
-      </div>
-      {/* User Registration Modal */}
-      <div
-        className="modal fade"
-        id="UserCourseModal"
-        tabIndex={-1}
-        aria-labelledby="adminUserCourse"
-        aria-hidden="true"
-      >
-        <AdminUserCourse taiKhoan={UserModal} />
-      </div>
-    </div>
-  );
+    );
+  }
+
+  return <>{body}</>;
 }

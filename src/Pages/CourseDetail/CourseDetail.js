@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { history } from "../../App";
@@ -10,8 +11,10 @@ import {
 import { getUserInfoApi } from "./../../Redux/Actions/UserAction";
 
 export default function CourseDetail(props) {
-  const { chiTietKhoaHoc } = useSelector((state) => state.CourseReducer);
-  const { thongTinTaiKhoan, taiKhoan } = useSelector(
+  const { chiTietKhoaHoc, courseLoading } = useSelector(
+    (state) => state.CourseReducer
+  );
+  const { thongTinTaiKhoan, taiKhoan, userLoading } = useSelector(
     (state) => state.UserReducer
   );
   const dispatch = useDispatch();
@@ -25,8 +28,24 @@ export default function CourseDetail(props) {
     }
   }, [props.match.params.maKhoaHoc]);
 
-  return (
-    <div>
+  useEffect(() => {
+    return () => {
+      dispatch({ type: "RESET_LOADING" });
+    };
+  }, []);
+
+  let body = "";
+  if (courseLoading) {
+    body = (
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: "100vh" }}
+      >
+        <Spinner animation="border" variant="info" />
+      </div>
+    );
+  } else {
+    body = (
       <div className="courseDetail__wrapper">
         <div className="courseDetail_carousel">
           <div className="courseDetail_carousel_overlay"></div>
@@ -84,6 +103,8 @@ export default function CourseDetail(props) {
           <p>{chiTietKhoaHoc.moTa}</p>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  return <>{body}</>;
 }
