@@ -212,7 +212,7 @@ export default function AdminUser() {
               <nav className="my-3" aria-label="breadcrumb">
                 <ol className="breadcrumb">
                   <li className="breadcrumb-item">
-                    <a href="./index.html">Dashboard</a>
+                    <Link to="./admin">Dashboard</Link>
                   </li>
                   <li className="breadcrumb-item active" aria-current="page">
                     Quản lý khóa học
