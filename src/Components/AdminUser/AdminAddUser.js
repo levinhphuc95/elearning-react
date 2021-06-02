@@ -27,7 +27,9 @@ export default function AdminAddUserModal(props) {
         .required("Email không được bỏ trống!")
         .email("Email không đúng định dạng!"),
       hoTen: Yup.string().required("Họ tên không được bỏ trống"),
-      soDT: Yup.string().matches(phoneRegex, "Số điện thoại không hợp lệ"),
+      soDT: Yup.string()
+        .required("Số điện thoại không được bỏ trống")
+        .matches(phoneRegex, "Số điện thoại không hợp lệ"),
     }),
   });
 
@@ -67,7 +69,9 @@ export default function AdminAddUserModal(props) {
                   onBlur={formik.handleBlur}
                 />
                 <div id="invalidTen" className="invalid-form text-danger">
-                  {formik.errors.taiKhoan}
+                  {formik.errors.taiKhoan && formik.touched.taiKhoan
+                    ? formik.errors.taiKhoan
+                    : null}
                 </div>
               </div>
               <div className="col-md-6 mb-3">
@@ -81,7 +85,9 @@ export default function AdminAddUserModal(props) {
                   onBlur={formik.handleBlur}
                 />
                 <div id="invalidTen" className="invalid-form text-danger">
-                  {formik.errors.hoTen}
+                  {formik.errors.hoTen && formik.touched.hoTen
+                    ? formik.errors.hoTen
+                    : null}
                 </div>
               </div>
               <div className="col-md-6 mb-3">
@@ -95,7 +101,9 @@ export default function AdminAddUserModal(props) {
                   onBlur={formik.handleBlur}
                 />
                 <div id="invalidTen" className="invalid-form text-danger">
-                  {formik.errors.matKhau}
+                  {formik.errors.matKhau && formik.touched.matKhau
+                    ? formik.errors.matKhau
+                    : null}
                 </div>
               </div>
               <div className="col-md-6 mb-3">
@@ -123,7 +131,9 @@ export default function AdminAddUserModal(props) {
                   onBlur={formik.handleBlur}
                 />
                 <div id="invalidTen" className="invalid-form text-danger">
-                  {formik.errors.soDT}
+                  {formik.errors.soDT && formik.touched.soDT
+                    ? formik.errors.soDT
+                    : null}
                 </div>
               </div>
               <div className="col-md-6 mb-3">
@@ -137,7 +147,9 @@ export default function AdminAddUserModal(props) {
                   onBlur={formik.handleBlur}
                 />
                 <div id="invalidTen" className="invalid-form text-danger">
-                  {formik.errors.email}
+                  {formik.errors.email && formik.touched.email
+                    ? formik.errors.email
+                    : null}
                 </div>
               </div>
             </div>

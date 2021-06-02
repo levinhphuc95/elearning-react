@@ -21,7 +21,6 @@ export default function CourseSearch(props) {
 
   useEffect(() => {
     if (taiKhoan !== "") {
-      console.log(taiKhoan);
       dispatch(getUserInfoApi(taiKhoan));
       dispatch(getCourseListApi());
     } else {

@@ -50,6 +50,7 @@ export default function Login(props) {
       dispatch(loginApi(values));
     },
   });
+  console.log(formikLogin.touched);
   return (
     <div className="login__wrapper">
       <div className={`login_container ${props.match.params.signUpMode}`}>
@@ -71,7 +72,10 @@ export default function Login(props) {
                   onBlur={formikLogin.handleBlur}
                 />
               </div>
-              <p className="text-danger">{formikLogin.errors.taiKhoan}</p>
+              {formikLogin.errors.taiKhoan && formikLogin.touched.taiKhoan ? (
+                <p className="text-danger">{formikLogin.errors.taiKhoan}</p>
+              ) : null}
+
               <div className="input-field">
                 <i className="fas fa-lock" />
                 <input
@@ -82,7 +86,9 @@ export default function Login(props) {
                   onBlur={formikLogin.handleBlur}
                 />
               </div>
-              <p className="text-danger">{formikLogin.errors.matKhau}</p>
+              {formikLogin.errors.matKhau && formikLogin.touched.matKhau ? (
+                <p className="text-danger">{formikLogin.errors.matKhau}</p>
+              ) : null}
               <input
                 type="submit"
                 className="btn solid"
@@ -122,8 +128,10 @@ export default function Login(props) {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                <p>{formik.errors.taiKhoan}</p>
               </div>
+              {formik.errors.taiKhoan && formik.touched.taiKhoan ? (
+                <p className="text-danger">{formik.errors.taiKhoan}</p>
+              ) : null}
               <div className="input-field">
                 <i className="fas fa-envelope" />
                 <input
@@ -133,8 +141,10 @@ export default function Login(props) {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                <p>{formik.errors.email}</p>
               </div>
+              {formik.errors.email && formik.touched.email ? (
+                <p className="text-danger">{formik.errors.email}</p>
+              ) : null}
               <div className="input-field">
                 <i className="fas fa-lock" />
                 <input
@@ -144,8 +154,10 @@ export default function Login(props) {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                <p>{formik.errors.matKhau}</p>
               </div>
+              {formik.errors.matKhau && formik.touched.matKhau ? (
+                <p className="text-danger">{formik.errors.matKhau}</p>
+              ) : null}
               <div className="input-field">
                 <i className="fas fa-user" />
                 <input
@@ -155,8 +167,10 @@ export default function Login(props) {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                <p>{formik.errors.hoTen}</p>
               </div>
+              {formik.errors.hoTen && formik.touched.hoTen ? (
+                <p className="text-danger">{formik.errors.hoTen}</p>
+              ) : null}
               <div className="input-field">
                 <i className="fas fa-user" />
                 <input
@@ -166,8 +180,10 @@ export default function Login(props) {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                <p>{formik.errors.soDT}</p>
               </div>
+              {formik.errors.soDT && formik.touched.soDT ? (
+                <p className="text-danger">{formik.errors.soDT}</p>
+              ) : null}
               <input
                 type="submit"
                 className="btn"

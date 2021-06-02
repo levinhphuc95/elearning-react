@@ -98,7 +98,9 @@ export default function AdminAddCourseModal(props) {
                   onBlur={formik.handleBlur}
                 />
                 <div id="invalidTen" className="invalid-form text-danger">
-                  {formik.errors.maKhoaHoc}
+                  {formik.errors.maKhoaHoc && formik.touched.maKhoaHoc
+                    ? formik.errors.maKhoaHoc
+                    : null}
                 </div>
               </div>
               <div className="col-md-4 mb-3">
@@ -112,7 +114,9 @@ export default function AdminAddCourseModal(props) {
                   onBlur={formik.handleBlur}
                 />
                 <div id="invalidTen" className="invalid-form text-danger">
-                  {formik.errors.luotXem}
+                  {formik.errors.luotXem && formik.touched.luotXem
+                    ? formik.errors.luotXem
+                    : null}
                 </div>
               </div>
               <div className="col-md-8 mb-3">
@@ -126,7 +130,9 @@ export default function AdminAddCourseModal(props) {
                   onBlur={formik.handleBlur}
                 />
                 <div id="invalidTen" className="invalid-form text-danger">
-                  {formik.errors.tenKhoaHoc}
+                  {formik.errors.tenKhoaHoc && formik.touched.tenKhoaHoc
+                    ? formik.errors.tenKhoaHoc
+                    : null}
                 </div>
               </div>
               <div className="col-md-4 mb-3">
@@ -140,7 +146,9 @@ export default function AdminAddCourseModal(props) {
                   onBlur={formik.handleBlur}
                 />
                 <div id="invalidTen" className="invalid-form text-danger">
-                  {formik.errors.danhGia}
+                  {formik.errors.danhGia && formik.touched.danhGia
+                    ? formik.errors.danhGia
+                    : null}
                 </div>
               </div>
               <div className="col-md-6 mb-3">
@@ -189,7 +197,9 @@ export default function AdminAddCourseModal(props) {
                   onBlur={formik.handleBlur}
                 />
                 <div id="invalidTen" className="invalid-form text-danger">
-                  {formik.errors.moTa}
+                  {formik.errors.moTa && formik.touched.moTa
+                    ? formik.errors.moTa
+                    : null}
                 </div>
               </div>
               <div className="col-md-6 mb-3">

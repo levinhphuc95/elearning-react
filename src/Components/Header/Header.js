@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import { history } from "./../../App";
 import UserLoginButtons from "../UserLogin/UserLoginButtons";
 import UserInfo from "../UserLogin/UserInfo";
+import { getUserInfoApi } from "../../Redux/Actions/UserAction";
 
 export default function Header(props) {
   const { danhMucKhoaHoc } = useSelector((state) => state.CourseReducer);
@@ -24,7 +25,10 @@ export default function Header(props) {
 
   useEffect(() => {
     dispatch(layDanhMucKhoaHocApi());
-  }, []);
+    // if (taiKhoan !== "") {
+    //   dispatch(getUserInfoApi(taiKhoan));
+    // }
+  }, [taiKhoan]);
 
   const renderDanhMucKhoaHoc = () => {
     return danhMucKhoaHoc.map((item, index) => {

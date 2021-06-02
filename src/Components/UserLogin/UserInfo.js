@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { DANG_XUAT_TAI_KHOAN } from "./../../Redux/Constants/eLearningConst";
+import { getUserInfoApi } from "../../Redux/Actions/UserAction";
 
 export default function UserInfo(props) {
   const dispatch = useDispatch();
-  // const { taiKhoan, maLoaiNguoiDung, tenDangNhap } = useSelector(
-  //   (state) => state.UserReducer
-  // );
+  const { taiKhoan, thongTinTaiKhoan } = useSelector(
+    (state) => state.UserReducer
+  );
+  useEffect(() => {
+    if (taiKhoan !== "") {
+      dispatch(getUserInfoApi(taiKhoan));
+    }
+  }, [taiKhoan]);
   return (
     <ul className="nav navbar-nav">
       <li className="nav-item dropdown navbar__item">
@@ -46,7 +52,7 @@ export default function UserInfo(props) {
             Thông tin tài khoản
           </Link>
           <div>
-            {props.maLoaiND === "GV" ? (
+            {thongTinTaiKhoan.maLoaiNguoiDung === "GV" ? (
               <Link className="dropdown-item bg-light text-dark" to={`/admin`}>
                 Quản lý website
               </Link>
