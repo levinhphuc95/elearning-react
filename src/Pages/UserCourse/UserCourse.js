@@ -14,6 +14,7 @@ export default function CourseSearch(props) {
   const { danhSachKhoaHoc, courseLoading } = useSelector(
     (state) => state.CourseReducer
   );
+  console.log(thongTinTaiKhoan);
 
   const [searchValue, setSearchValue] = useState("");
 

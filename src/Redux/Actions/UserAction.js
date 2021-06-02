@@ -56,7 +56,12 @@ export const loginApi = (userLogin) => {
   };
 };
 
-export const getUserInfoApi = (taiKhoan) => {
+export const getUserInfoApi = () => {
+  if (localStorage.getItem(USER_LOGIN)) {
+    let userLogin = JSON.parse(localStorage.getItem(USER_LOGIN));
+    taiKhoan = userLogin.taiKhoan;
+    token = userLogin.accessToken;
+  }
   return async (dispatch) => {
     try {
       let result = await axios({
