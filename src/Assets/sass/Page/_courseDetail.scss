@@ -42,7 +42,8 @@
       background: linear-gradient(to right, $color-1, $color-2);
       color: white;
       font-weight: bold;
-      width: 110px;
+      max-width: 150px;
+      text-align: center;
     }
   }
   .courseDetail_image {
